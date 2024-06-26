@@ -40,7 +40,10 @@ public class BookController {
     }
     @PostMapping
     public ResponseEntity<BookDtos> saveBook(@RequestBody SaveBookDtos saveBookDtos) {
-        return new ResponseEntity<>(mapper.toResource(bookService.saveBook(mapper.toModel(saveBookDtos))), HttpStatus.CREATED);
+        Book book = mapper.toModel(saveBookDtos);
+        book.setId(null);
+        Book savedBook = bookService.saveBook(book);
+        return new ResponseEntity<>(mapper.toResource(savedBook), HttpStatus.CREATED);
     }
     @PutMapping("{bookId}")
     public BookDtos updateBook(@PathVariable Long bookId, @RequestBody SaveBookDtos saveBookDtos) {
