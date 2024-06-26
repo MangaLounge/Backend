@@ -37,6 +37,7 @@ public class BookServiceImpl implements IBookService {
     }
     @Override
     public Book saveBook(Book book) {
+        book.setId(null);
         return bookRepository.save(book);
     }
 
