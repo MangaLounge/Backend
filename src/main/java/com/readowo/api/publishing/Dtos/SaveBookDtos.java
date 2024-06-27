@@ -14,4 +14,6 @@ public class SaveBookDtos {
     private Long userProfileId;
     private String language;
     private String saga;
+    private String fullText;
+    private int visitCount;
 }
