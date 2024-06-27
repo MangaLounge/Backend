@@ -36,6 +36,12 @@ public class Book {
 
     private String language;
     private String saga;
+    @Lob
+    @Column(length = 100000)
+    private String fullText;
+
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int visitCount;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "book")
     private Set<Chapters> chapters = new HashSet<>() ;
