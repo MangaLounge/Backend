@@ -45,10 +45,9 @@ public class UserProfileController {
         return mapper.toResource(userProfileService.saveUserProfile(mapper.toModel(saveUserProfileDto)));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserProfileResponse> updateUserProfile(@PathVariable("id") Long id, @RequestBody SaveUserProfileDto saveUserProfileDto) {
-        UserProfileResponse response = userProfileService.updateUserProfile(id, saveUserProfileDto);
-        return ResponseEntity.ok().body(response);
+    @PutMapping("/{userId}")
+    public UserProfileDto updateUser(@PathVariable Long userId, @RequestBody SaveUserProfileDto saveUserProfileDto) {
+        return mapper.toResource(userProfileService.updateUserProfile(userId, mapper.toModel(saveUserProfileDto)));
     }
 
     @DeleteMapping("/{id}")
