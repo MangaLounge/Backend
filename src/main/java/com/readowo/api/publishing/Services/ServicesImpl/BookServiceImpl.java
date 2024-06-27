@@ -38,17 +38,30 @@ public class BookServiceImpl implements IBookService {
     @Override
     public Book saveBook(Book book) {
         book.setId(null);
+        book.setVisitCount(0);
         return bookRepository.save(book);
     }
 
     @Override
-    public Book updateBook(Long id,Book book) {
-        return bookRepository.findById(id).map(bookToUpdate ->
-                        bookRepository.save(
-                                bookToUpdate.withSynopsis(book.getSynopsis())
-                                        .withThumbnailUrl(book.getThumbnailUrl())
-                                        .withTitle(book.getTitle())))
-                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
+    public Book updateBook(Long id, Book book) {
+        return bookRepository.findById(id).map(bookToUpdate -> {
+            if (book.getSynopsis() != null) {
+                bookToUpdate.setSynopsis(book.getSynopsis());
+            }
+            if (book.getThumbnailUrl() != null) {
+                bookToUpdate.setThumbnailUrl(book.getThumbnailUrl());
+            }
+            if (book.getTitle() != null) {
+                bookToUpdate.setTitle(book.getTitle());
+            }
+            if (book.getFullText() != null) {
+                bookToUpdate.setFullText(book.getFullText());
+            }
+            if (book.getVisitCount() >= 0) {
+                bookToUpdate.setVisitCount(book.getVisitCount());
+            }
+            return bookRepository.save(bookToUpdate);
+        }).orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
     }
 
     @Override
