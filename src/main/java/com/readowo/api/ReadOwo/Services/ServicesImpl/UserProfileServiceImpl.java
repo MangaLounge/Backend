@@ -67,16 +67,10 @@ public class UserProfileServiceImpl implements IUserProfileService {
     }
 
     @Override
-    public UserProfileResponse updateUserProfile(Long id, SaveUserProfileDto saveUserProfileDto) {
-        Optional<UserProfile> optionalUserProfile = userProfileRepository.findById(id);
-        if (optionalUserProfile.isPresent()) {
-            UserProfile existingUserProfile = optionalUserProfile.get();
-            modelMapper.map(saveUserProfileDto, existingUserProfile);
-            UserProfile updatedUserProfile = userProfileRepository.save(existingUserProfile);
-            UserProfileDto userProfileDto = modelMapper.map(updatedUserProfile, UserProfileDto.class);
-            return new UserProfileResponse(String.valueOf(userProfileDto));
-        } else {
-            return new UserProfileResponse("User Profile not found");
-        }
+    public UserProfile updateUserProfile(Long id, UserProfile userProfile) {
+        return userProfileRepository.findById(id).map(userToUpdate ->
+                        userProfileRepository.save(
+                                userToUpdate.withName(userProfile.getName())))
+                .orElseThrow(() -> new ResourceNotFoundException(ENTITY, id));
     }
 }
