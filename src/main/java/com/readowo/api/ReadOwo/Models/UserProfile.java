@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.With;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +16,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@With
 @Table(name = "user_profile")
 public class UserProfile {
     @Id
