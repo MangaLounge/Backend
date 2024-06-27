@@ -15,5 +15,5 @@ public interface IUserProfileService {
     UserProfile getUserProfileById(Long userProfileId);
     UserProfile saveUserProfile(UserProfile userProfile);
     UserProfileResponse deleteUserProfile(Long userProfileId);
-    UserProfileResponse updateUserProfile(Long id, SaveUserProfileDto saveUserProfileDto);
+    UserProfile updateUserProfile(Long id, UserProfile userProfile);
 }
