@@ -19,4 +19,6 @@ public class BookDtos {
     private UserProfile userProfile;
     private String language;
     private String saga;
+    private String fullText;
+    private int visitCount;
 }
